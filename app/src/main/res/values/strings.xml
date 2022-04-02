@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">RedSocialApp</string>
+    <string name="log_in">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="usuario">Email</string>
+    <string name="pass">Contraseña</string>
+    <string name="forgot_pass">Forgot password?</string>
+    <string name="or">or</string>
+    <string name="welcome">Welcome</string>
+    <string name="create_account">Create account</string>
+    <string name="name">Name</string>
+    <string name="last_name">Last Name</string>
+</resources>

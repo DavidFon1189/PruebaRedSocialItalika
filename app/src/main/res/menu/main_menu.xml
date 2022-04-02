@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_perfil"
+        android:title="Perfil"
+        android:icon="@drawable/ic_person"/>
+    <item
+        android:id="@+id/nav_resenas"
+        android:title="Reseñas"
+        android:icon="@drawable/ic_action_resenas"/>
+    <item
+        android:id="@+id/nav_add"
+        android:title="Agregar"
+        android:icon="@drawable/ic_action_add"/>
+    <item
+        android:id="@+id/nav_graphic"
+        android:title="Estadisticas"
+        android:icon="@drawable/ic_action_graphic"/>
+    <item
+        android:id="@+id/nav_ubicacion"
+        android:title="Ubicacion"
+        android:icon="@drawable/ic_action_graphic_ubi"/>
+</menu>

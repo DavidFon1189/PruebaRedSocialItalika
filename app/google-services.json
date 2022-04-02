@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "507761874789",
+    "project_id": "rddsocialprueba",
+    "storage_bucket": "rddsocialprueba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507761874789:android:864a9e6915cb9c3e88738c",
+        "android_client_info": {
+          "package_name": "com.example.redsocialapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507761874789-70g5a9i9k5b40aankbefo3t235vr6ef5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtT-oHk0bWou1UNUGwQJsWVyzAkgBFbXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507761874789-70g5a9i9k5b40aankbefo3t235vr6ef5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507761874789:android:376730ae27ba702088738c",
+        "android_client_info": {
+          "package_name": "com.example.redsociald"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507761874789-70g5a9i9k5b40aankbefo3t235vr6ef5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtT-oHk0bWou1UNUGwQJsWVyzAkgBFbXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507761874789-70g5a9i9k5b40aankbefo3t235vr6ef5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
