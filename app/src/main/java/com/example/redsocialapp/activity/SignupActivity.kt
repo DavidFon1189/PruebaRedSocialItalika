@@ -17,6 +17,8 @@ import com.example.redsocialapp.databinding.SignUpActivityBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -37,6 +39,7 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener {
     private var id: String = ""
     private var uri: Uri? = null
     private var photoURI: Uri? = null
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,39 +48,80 @@ class SignupActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(view)
         binding.btnSignUpMain.setOnClickListener(this)
         binding.imgSelfie.setOnClickListener(this)
+        binding.tvUserLoginAccount.setOnClickListener(this)
         auth = Firebase.auth
     }
 
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btn_sign_up_main -> {
-                val name = binding.edtNameAccount.text.toString().trim()
-                val lastName = binding.edtAppAccount.text.toString().trim()
-                val random = Random()
-                val randomDigits = random.nextInt(999999)
-                val formatDigits = String.format("%06d", randomDigits)
-                id = name.substring(0, 2).uppercase(Locale.getDefault()) + lastName.substring(0, 2)
+                if (!binding.edtNameAccount.text.isEmpty() && !binding.edtAppAccount.text.isEmpty() &&
+                    !binding.edtUserLogin.text.isEmpty() && !binding.edtPass.text.isEmpty() && uri != null
+                ) {
+                    val name = binding.edtNameAccount.text.toString().trim()
+                    val lastName = binding.edtAppAccount.text.toString().trim()
+                    val random = Random()
+                    val randomDigits = random.nextInt(999999)
+                    val formatDigits = String.format("%06d", randomDigits)
+                    id = name.substring(0, 2).uppercase(Locale.getDefault()) + lastName.substring(
+                        0,
+                        2
+                    )
                         .uppercase(Locale.getDefault()) + formatDigits
-                Log.d("TAG", "NUMER: $id")
-                fileUpLoad()
-                auth.createUserWithEmailAndPassword(
-                    binding.edtUserLogin.text.toString(),
-                    binding.edtPass.text.toString()
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        startActivity(Intent(this, LoginActivity::class.java))
-                    } else {
-                        val buildDialog = AlertDialog.Builder(this)
-                        buildDialog.setTitle("ERROR")
-                        buildDialog.setMessage("Error de autenticacion")
-                        buildDialog.setPositiveButton("Aceptar", null)
-                        val dialog: AlertDialog = buildDialog.create()
-                        dialog.show()
+                    Log.d("TAG", "NUMER: $id")
+                    fileUpLoad()
+                    auth.createUserWithEmailAndPassword(
+                        binding.edtUserLogin.text.toString(),
+                        binding.edtPass.text.toString()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            addClietnDataBase()
+//                        startActivity(Intent(this, LoginActivity::class.java))
+                        } else {
+                            val buildDialog = AlertDialog.Builder(this)
+                            buildDialog.setTitle("ERROR")
+                            buildDialog.setMessage("Error de autenticacion")
+                            buildDialog.setPositiveButton("Aceptar", null)
+                            val dialog: AlertDialog = buildDialog.create()
+                            dialog.show()
+                        }
                     }
+                } else{
+                    Toast.makeText(this, "Datos y/o selfi incorrecta", Toast.LENGTH_SHORT).show()
                 }
             }
             R.id.img_selfie -> {
                 dispatchTakePictureIntent()
+            }
+            R.id.tv_user_login_account -> {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+        }
+    }
+
+    fun addClietnDataBase(){
+        val hashMap:HashMap<String,String> = HashMap()
+        val map:HashMap<String,String> = HashMap()
+        hashMap.put("resena","")
+
+        map.put("nombre", binding.edtNameAccount.text.toString().trim())
+        map.put("email", binding.edtUserLogin.text.toString().trim())
+        map.putAll(hashMap)
+
+        val email = binding.edtUserLogin.text.toString().trim()
+        db.collection("users").document(email).set(
+            map
+        ).addOnCompleteListener{
+            if (it.isSuccessful){
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            } else {
+                val buildDialog = AlertDialog.Builder(this)
+                buildDialog.setTitle("ERROR")
+                buildDialog.setMessage("No fue posible su registro")
+                buildDialog.setPositiveButton("Aceptar", null)
+                val dialog: AlertDialog = buildDialog.create()
+                dialog.show()
             }
         }
     }

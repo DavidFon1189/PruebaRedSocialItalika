@@ -34,17 +34,29 @@ class AddResenasFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.btn_add_resena -> {
-                val resena = binding.edtAddResena.text.toString()
-                db.collection("users").document(email)
-                    .update("resena", FieldValue.arrayUnion(resena)).addOnCompleteListener() {
-                    if (it.isSuccessful) {
-                        Toast.makeText(activity, "Resña agregada exitosamente", Toast.LENGTH_SHORT)
-                            .show()
-                        binding.edtAddResena.setText("")
-                    } else {
-                        Toast.makeText(activity, "Fallo al ingresar la reseña", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                if (!binding.edtAddResena.text.isEmpty()) {
+                    val resena = binding.edtAddResena.text.toString()
+                    db.collection("users").document(email)
+                        .update("resena", FieldValue.arrayUnion(resena)).addOnCompleteListener() {
+                            if (it.isSuccessful) {
+                                Toast.makeText(
+                                    activity,
+                                    "Resña agregada exitosamente",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                                binding.edtAddResena.setText("")
+                            } else {
+                                Toast.makeText(
+                                    activity,
+                                    "Fallo al ingresar la reseña",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }
+                } else{
+                    Toast.makeText(activity, "Agregar reseña", Toast.LENGTH_SHORT).show()
                 }
             }
         }

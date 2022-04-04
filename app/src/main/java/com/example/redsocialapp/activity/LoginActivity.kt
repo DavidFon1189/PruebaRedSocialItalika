@@ -3,6 +3,7 @@ package com.example.redsocialapp.activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.redsocialapp.R
@@ -22,6 +23,7 @@ class LoginActivity: AppCompatActivity(), View.OnClickListener {
         binding = LoginActivityBinding.inflate(layoutInflater)
         val view = binding.root
         binding.btnUserLoginMain.setOnClickListener(this)
+        binding.btnSignupLogin.setOnClickListener(this)
         auth = Firebase.auth
         setContentView(view)
     }
@@ -29,23 +31,29 @@ class LoginActivity: AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.btn_user_login_main -> {
-                val user = binding.edtUserLogin.text.toString().trim()
-                val pass = binding.edtPass.text.toString().trim()
-                auth.signInWithEmailAndPassword(user, pass).
-                addOnCompleteListener{
-                    if (it.isSuccessful){
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.putExtra("email", user)
-                        startActivity(intent)
-                    } else {
-                        val buildDialog = AlertDialog.Builder(this)
-                        buildDialog.setTitle("ERROR")
-                        buildDialog.setMessage("Error de autenticacion")
-                        buildDialog.setPositiveButton("Aceptar", null)
-                        val dialog: AlertDialog = buildDialog.create()
-                        dialog.show()
+                if (!binding.edtUserLogin.text.isEmpty() && !binding.edtPass.text.isEmpty()){
+                    val user = binding.edtUserLogin.text.toString().trim()
+                    val pass = binding.edtPass.text.toString().trim()
+                    auth.signInWithEmailAndPassword(user, pass).
+                    addOnCompleteListener{
+                        if (it.isSuccessful){
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.putExtra("email", user)
+                            startActivity(intent)
+                        } else {
+                            val buildDialog = AlertDialog.Builder(this)
+                            buildDialog.setTitle("ERROR")
+                            buildDialog.setMessage("Error de autenticacion")
+                            buildDialog.setPositiveButton("Aceptar", null)
+                            val dialog: AlertDialog = buildDialog.create()
+                            dialog.show()
+                        }
                     }
+                } else {
+                    Toast.makeText(this, "Usuario y/o contraseña incorrecto", Toast.LENGTH_SHORT).show()
                 }
+            } R.id.btn_signup_login -> {
+                startActivity(Intent(this, SignupActivity::class.java))
             }
         }
     }
