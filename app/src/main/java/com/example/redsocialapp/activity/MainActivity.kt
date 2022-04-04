@@ -10,6 +10,7 @@ import com.example.redsocialapp.R
 import com.example.redsocialapp.databinding.MainActivityBinding
 import com.example.redsocialapp.fragment.AddResenasFragment
 import com.example.redsocialapp.fragment.PerfilFragment
+import com.example.redsocialapp.fragment.QuestionsFragment
 import com.example.redsocialapp.fragment.ResenasCommunity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -63,6 +64,10 @@ class MainActivity : AppCompatActivity() {
                     bundle.putString("email", email)
                     fragment.arguments = bundle
                     replaceFragment(fragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.nav_graphic -> {
+                    replaceFragment(QuestionsFragment())
                     return@OnNavigationItemSelectedListener true
                 }
             }

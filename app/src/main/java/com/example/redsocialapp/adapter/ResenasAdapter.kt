@@ -1,4 +1,4 @@
-package com.example.redsocialapp
+package com.example.redsocialapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.redsocialapp.R
 
 class ResenasAdapter(
     var resenaList: MutableList<String>):
